@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>集合</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        // 定义模型类
+        var Book = Backbone.Model.extend({
+            defaults : {
+                name :''
+            }
+        });
+        // 定义集合类
+        var BookList = Backbone.Collection.extend({
+            model : Book
+        });
+        // 创建一系列模型对象
+        var models = [{
+            name : 'Effective Java中文版(第2版)',
+            price : 51.80
+        }, {
+            name : 'JAVA核心技术卷II：高级特性（原书第8版）',
+            price : 51.70
+        }, {
+            name : '精通Hibernate：Java对象持久化技术详解（第2版）',
+            price : 51.90
+        }];
+        // 创建集合对象1
+        var books = new BookList(models);
+        // 创建集合对象2
+        var books2 = new Backbone.Collection(models, {
+            model: Book
+        });
+
+        //添加元素指定位置
+        books.push({
+            name : '深入分析Java Web技术内幕',
+            price : 51.80
+        },{at:1});
+        //添加到尾部
+        books.add({
+            name: '构建高性能Web站点',
+            price: 56.30
+        });
+        //添加到头部
+        books.unshift({
+            name: '构建高性能Web站点',
+            price: 56.30
+        });
+        //移除指定
+        books.remove(books.models[2]);
+        //移除尾部
+        books.pop();
+        //移除头部
+        books.shift();
+        console.dir(books.models);
+
+        //根据id查找
+        var book1 = books.get(1001);
+        //根据位置查找
+        var book2 = books.at(2);
+        //筛选
+        var book3 = books.where({
+            price : 51.80
+        });
+        // 在控制台输出模型
+        console.dir(book1);
+        console.dir(book2);
+        console.dir(book3);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

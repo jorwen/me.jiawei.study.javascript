@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>全部事件</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        // 创建一个Model的实例
+        var m = new Backbone.Model();
+        // 将监听函数绑定到m对象的all事件中
+        m.on('all', function (eventName) {
+            console.log("all:"+eventName);
+        });
+        // 将监听函数绑定到m对象的自定义事件show中
+        m.on('show', function () {
+            console.log('show title');
+        });
+        // 将另一个监听函数绑定到m对象的自定义事件show中
+        m.on('show', function () {
+            console.log('show content');
+        });
+        // 将监听函数绑定到m对象的自定义事件hide中
+        m.on('hide', function () {
+            console.log('hide');
+        });
+        // 触发m对象的show事件和hide事件
+        m.trigger('show');
+        m.trigger('hide');
+    </script>
+</head>
+<body>
+
+</body>
+</html>

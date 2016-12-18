@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>暂停节流</title>
+    <script src="../../lib/jquery.js"></script>
+    <script src="../../lib/underscore.js"></script>
+</head>
+<body>
+<input type="text" id="testInput">
+<script>
+    var query = _(function(){
+        console.log("触发查询");
+    }).debounce(300);
+    $("#testInput").bind("keypress",query);
+</script>
+</body>
+</html>

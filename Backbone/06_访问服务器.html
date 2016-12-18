@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>访问服务器</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        //REST方式
+        function restCall() {
+            // 定义Book模型类
+            var Book = Backbone.Model.extend({
+                urlRoot: '/service'
+            });
+            // 创建实例
+            var javabook = new Book({
+                id: 1001,
+                name: 'Thinking in Java',
+                author: 'Bruce Eckel',
+                price: 395.70
+            });
+            // 保存数据
+            javabook.save();
+            // 删除数据
+            javabook.destroy();
+            // 高级保存
+            javabook.set({
+                name: 'Thinking in Java2',
+                author: 'Bruce Eckel2',
+                price: 395.70
+            });
+            javabook.save(null, {
+                success: function (model) {
+                    // 数据保存成功之后, 修改price属性并重新保存
+                    javabook.set({
+                        price: 388.00
+                    });
+                    javabook.save();
+                }
+            });
+            javabook.save({
+                name: 'Thinking in Java3',
+                author: 'Bruce Eckel3',
+                price: 395.70
+            }, {
+                //数据会在被提交到服务器之前进行验证，当服务器没有响应新数据（或响应失败）时，模型中的数据会被还原为修改前的状态。
+                wait: true
+            });
+            alert(javabook.get("name"));
+
+            // 删除数据，wait=true只有成功后才会改变本地模型
+            javabook.destroy({
+                wait : true
+            });
+        }
+
+        //非REST方式
+        function notRestCall() {
+            // 定义Book模型类
+            var Book = Backbone.Model.extend({
+                url: '/javaservice'
+            });
+            // 创建实例，有id就是更新，没id是创建。创建后返回{id:xxx}
+            var javabook = new Book({
+                id: 1001,
+                name: 'Thinking in Java',
+                author: 'Bruce Eckel',
+                price: 395.70
+            });
+            // 保存数据
+            javabook.save();
+            // 保存数据2
+            javabook.save(null,{url:'/myservice'});
+            // 删除数据
+            javabook.destroy();
+        }
+
+        //自定义返回数据
+        function custCall(){
+            // 定义Book模型类
+            var Book = Backbone.Model.extend({
+                urlRoot: '/service',
+                // 重载parse方法解析服务器返回的数据
+                parse: function (resp, xhr) {
+                    var data = resp.data[0];
+                    return {
+                        id: data.bookId,
+                        name: data.bookName,
+                        author: data.bookAuthor,
+                        price: data.bookPrice
+                    }
+                }
+            });
+            // 创建实例
+            var javabook = new Book();
+            // 从将数据保存到服务器
+            javabook.save({
+                name: 'Thinking in Java',
+                author: 'Bruce Eckel',
+                price: 395.70
+            });
+        }
+    </script>
+</head>
+<body>
+<button onclick="restCall()">REST方式</button>
+<button onclick="notRestCall()">非REST方式</button>
+<button onclick="custCall()">自定义返回数据</button>
+</body>
+</html>

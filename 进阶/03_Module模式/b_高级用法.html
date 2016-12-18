@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../jquery.js" type="text/javascript"></script>
+    <script>
+        var calculatorModule = (function (my)
+        {
+            my.name = "jiawei";
+
+            my.add = function(x,y)
+            {
+                var val = x + y;
+                alert(this.name+val);
+            };
+            return my;
+        }(calculatorModule || {}));//这是确保MODULE对象，在存在的时候直接用，不存在的时候直接赋值为{}
+
+        //继承
+        var calculatorSubModule = (function (old)
+        {
+            var my = {};
+            for (var key in old)
+            {
+                if (old.hasOwnProperty(key))
+                {
+                    my[key] = old[key];
+                }
+            }
+
+            my.add = function (x, y, z)
+            {
+                var val = x + y + z;
+                alert(this.name + val);
+            };
+            return my;
+        }(calculatorModule || {}));
+
+        $(function ()
+        {
+            calculatorModule.add(2, 2);
+            calculatorSubModule.add(2, 2,3);
+        })
+    </script>
+</head>
+<body>
+<div id='eq'>
+
+</div>
+</body>
+</html>

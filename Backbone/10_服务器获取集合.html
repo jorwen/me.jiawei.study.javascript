@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>服务器获取集合</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        // 定义模型类
+        var Book = Backbone.Model.extend({
+            defaults: {
+                name: '',
+                price: 0
+            }
+        });
+        // 定义集合类
+        var BookList = Backbone.Collection.extend({
+            model: Book,
+            url: '/service'
+        });
+        // 创建集合对象, 并从服务器同步初始化数据
+        var books = new BookList();
+        books.fetch({
+            success: function (collection, resp) {
+                // 同步成功后在控制台输出集合中的模型列表
+                console.dir(collection.models);
+            }
+        });
+
+        //添加的方式同步，而不是覆盖
+        var books2 = new BookList();
+        books2.add({
+            id : 1000,
+            name : 'Thinking in Java',
+            price : 395.70
+        });
+        books2.fetch({
+            add: true,
+            success: function (collection, resp) {
+                // 同步成功后在控制台输出集合中的模型列表
+                console.dir(collection.models);
+            }
+        });
+
+        //添加到集合并且同步到服务器接口
+        var books3 = new BookList();
+        //create也是通过监听add
+        books3.create({
+            name: 'Thinking in Java',
+            price: 395.70
+        }, {
+            success: function (model, resp) {
+                // 添加成功后, 在控制台输出集合中的模型列表
+                console.dir(books.models);
+            }
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

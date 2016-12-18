@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>数据验证</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+
+    <script type="text/javascript">
+        // 定义Book模型类
+        var Book = Backbone.Model.extend({
+            defaults: {
+                name: 'unknown',
+                author: 'unknown',
+                price: 0
+            }
+        });
+        // 实例化模型对象
+        var javabook = new Book({
+            name: 'Thinking in Java'
+        });
+        // 通过get和escape()方法获取模型中的数据
+        var name = javabook.get('name');
+        var author = javabook.escape('author');//过滤< >
+        var price = javabook.get('price');
+        //监听修改数据
+        javabook.on('change', function (model) {
+            console.log('change事件被触发');
+        });
+        javabook.on('change:name', function (model) {
+            console.log('change:name事件被触发');
+        });
+        // 监听”change:price”事件
+        javabook.on('change:price', function (model, value) {
+            var price = model.previous('price');
+            //previousAttributes上一个状态对象
+            if (price < value) {
+                console.log('价格上涨了' + (value - price) + '元.');
+            } else if (price > value) {
+                console.log('价格下降了' + (value - price) + '元.');
+            } else {
+                console.log('价格没有发生变化.');
+            }
+        });
+        //修改数据
+        javabook.set('name', 'Java7入门经典');
+        javabook.set('price', 100);
+        javabook.set({
+            name: 'Java7入门经典',
+            author: 'Ivor Horton',
+            price: 88.50
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

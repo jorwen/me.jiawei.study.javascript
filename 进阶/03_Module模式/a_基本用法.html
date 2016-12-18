@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../jquery.js" type="text/javascript"></script>
+    <script>
+        var Calculator = function (eq)
+        {
+            //这里可以声明私有成员
+
+            var eqCtl = document.getElementById(eq);
+
+            return {
+                // 暴露公开的成员
+                add: function (x, y)
+                {
+                    var val = x + y;
+                    eqCtl.innerHTML = val;
+                }
+            };
+        };
+
+        $(function ()
+        {
+            var calculator = new Calculator('eq');
+            calculator.add(2, 2);
+        })
+    </script>
+</head>
+<body>
+<div id='eq'>
+
+</div>
+</body>
+</html>

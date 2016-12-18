@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>恢复服务器数据</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        // 定义Book模型类
+        var Book = Backbone.Model.extend({
+            urlRoot: '/service'
+        });
+        // 创建实例
+        var javabook = new Book();
+        // 从服务器获取默认数据
+        javabook.fetch({
+            success: function () {
+                // 获取数据成功后, 重新读取一次
+                javabook.fetch();
+            }
+        });
+        //第一次请求地址为http://localhost/service，Request Method参数为GET
+        //第二次请求地址为http://localhost/service/1001，Request Method参数为GET
+    </script>
+</head>
+<body>
+</body>
+</html>

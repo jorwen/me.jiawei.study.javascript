@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>面相对象</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script type="text/javascript">
+        //继承
+        var Note = Backbone.Model.extend({
+            initialize: function () { },
+            coordinates: function () { },
+            allowedToEdit: function (account) {console.log(account)}
+        });
+        var PrivateNote = Note.extend({
+            allowedToEdit: function (account) {
+                //调用父类方法
+                Note.prototype.allowedToEdit.apply(this, arguments);
+            }
+        });
+        var pn =  new PrivateNote();
+        pn.allowedToEdit(123);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

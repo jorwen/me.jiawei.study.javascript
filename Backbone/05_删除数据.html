@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>删除数据</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+
+    <script type="text/javascript">
+        // 定义Book模型类
+        var Book = Backbone.Model.extend();
+        // 实例化模型对象
+        var javabook = new Book({
+            name: 'Java7入门经典',
+            author: 'Ivor Horton',
+            price: 88.50
+        });
+        // 输出: Java7入门经典
+        console.log(javabook.get('name'));
+        // 删除对象name属性
+        javabook.unset('name');
+        // 输出: undefined
+        console.log(javabook.get('name'));
+        //当我们对模型的name属性执行unset()方法后，模型内部会使用delete关键字将name属性从对象中删除。
+        //clear()方法与unset()方法执行过程类似，但clear()方法会删除模型中的所有数据，例如：
+        // 定义Book模型类
+        var Book = Backbone.Model.extend();
+        // 实例化模型对象
+        var javabook = new Book({
+            name: 'Java7入门经典',
+            author: 'Ivor Horton',
+            price: 88.50
+        });
+        // 删除对象name属性
+        javabook.clear();
+        // 以下均输出: undefined
+        console.log(javabook.get('name'));
+        console.log(javabook.get('author'));
+        console.log(javabook.get('price'));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>视图事件</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+</head>
+<body>
+<p id=”view”>
+    <input type="button" value="Create" id="create"/>
+    <input type="button" value="Read" id="read"/>
+    <input type="button" value="Update" id="update"/>
+    <input type="button" value="Delete" id="delete"/>
+</p>
+</body>
+<script type="text/javascript">
+    var MyView = Backbone.View.extend({
+        el: '#view',
+        events: {
+            'click #create': 'createData',
+            'click #read': 'readData',
+            'click #update': 'updateData',
+            'click #delete': 'deleteData'
+        },
+        createData: function () {
+            // todo
+        },
+        readData: function () {
+            // todo
+        },
+        updateData: function () {
+            // todo
+        },
+        deleteData: function () {
+            // todo
+        }
+    });
+    var view = new MyView();
+</script>
+</html>

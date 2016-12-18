@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>视图</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+</head>
+<body>
+<div title="列表1" style="color:red" id="list1" class="listview1">Hello1</div>
+
+</body>
+<script type="text/javascript">
+    var ListView = Backbone.View.extend({
+        el: '#list1'
+    });
+    var listview = new ListView();
+
+    var ListView2 = Backbone.View.extend({
+        tagName: 'div',
+        className: 'listview2',
+        id: 'list2',
+        attributes: {
+            title: '列表2',
+            style: 'color:red'
+        },
+        render: function () {
+            this.el.innerHTML = 'Hello2';
+            document.body.appendChild(this.el);
+        }
+    });
+    var listview2 = new ListView2();
+    listview2.render();
+</script>
+</html>

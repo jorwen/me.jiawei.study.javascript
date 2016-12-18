@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>路由控制</title>
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+    <script>
+        /*
+        http://localhost/index.html // 输出：应用入口方法
+        http://localhost/index.html#topic // 输出：渲染列表方法
+        http://localhost/index.html#topic/1023 // 输出：渲染详情方法, id为:1023
+        http://localhost/index.html#about // 输出：URL错误, 错误信息: about
+        */
+        var AppRouter = Backbone.Router.extend({
+            routes: {
+                '': 'main',
+                'topic': 'renderList',
+                'topic/:id': 'renderDetail',
+                '*error': 'renderError'
+            },
+            main: function () {
+                console.log('应用入口方法');
+            },
+            renderList: function () {
+                console.log('渲染列表方法');
+            },
+            renderDetail: function (id) {
+                console.log('渲染详情方法, id为: ' + id);
+            },
+            renderError: function (error) {
+                console.log('URL错误, 错误信息: ' + error);
+            }
+        });
+        var router = new AppRouter();
+        //动态改变路由规则
+        router.route('topic/:pageno/:pagesize', 'page', function (pageno, pagesize) {
+            // todo
+        });
+        Backbone.history.start();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

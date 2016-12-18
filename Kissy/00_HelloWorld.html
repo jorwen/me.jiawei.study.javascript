@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>HelloWorld</title>
+    <script src="../lib/kissy/build/seed-min.js" data-config="{combine:true}"></script>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body>
+
+</body>
+<script>
+    KISSY.use('node', function (S, Node) {
+        // 查找 DOM 节点.
+        var oneElementById = Node.one('#foo'),
+            oneElementByName = Node.one('body'),
+            allElementsByClass = Node.all('.bar');
+
+        // 创建 DOM 节点.
+        var contentNode = new Node('<div>'),
+             listNode = new Node('<ul>'),
+             footerNode = new Node('<footer>');
+
+        // 操作节点，支持链式调用
+        contentNode.html('Hello Kissy!')
+                .append('<p>touch me</p>')
+                .addClass('highlight')
+                .appendTo('body');
+
+        // 绑定事件
+        Node.one('#close-button').on('click', function (e) {
+            contentNode.hide();
+        });
+    });
+</script>
+</html>
